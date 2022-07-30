@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: proj-tracker-db
+    image: postgres:14.2-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=proj-tracker-db
+    ports:
+      - '2346:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+
+  # pgadmin:
+  #   container_name: pgadmin
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   environment:
+  #     PGADMIN_DEFAULT_EMAIL: admin@admin.com
+  #     PGADMIN_DEFAULT_PASSWORD: password
+  #   ports:
+  #     - '5050:80'
+
+volumes:
+  db:
+    driver: local
