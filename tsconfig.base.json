@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@project-tracker/database": ["libs/database/src/index.ts"],
       "@project-tracker/types": ["libs/types/src/index.ts"]
     }
   },

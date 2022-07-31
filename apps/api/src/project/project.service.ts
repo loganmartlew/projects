@@ -1,9 +1,9 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
+import { Project } from '@project-tracker/database';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
-import { Project } from './entities/project.entity';
 
 @Injectable()
 export class ProjectService {
