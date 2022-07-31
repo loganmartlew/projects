@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Collection, Entity, Enum, OneToMany, Property } from '@mikro-orm/core';
+import {
+  Cascade,
+  Collection,
+  Entity,
+  Enum,
+  OneToMany,
+  Property,
+} from '@mikro-orm/core';
 import { BaseEntity } from './base.entity';
 import { ProjectLink, ProjectStatus } from '@project-tracker/types';
 import { Milestone } from './milestone.entity';
@@ -21,7 +28,9 @@ export class Project extends BaseEntity {
   @Property({ type: 'json', nullable: true })
   links?: ProjectLink[];
 
-  @OneToMany(() => Milestone, (milestone) => milestone.project)
+  @OneToMany(() => Milestone, (milestone) => milestone.project, {
+    cascade: [Cascade.PERSIST, Cascade.REMOVE],
+  })
   milestones = new Collection<Milestone>(this);
 
   constructor(

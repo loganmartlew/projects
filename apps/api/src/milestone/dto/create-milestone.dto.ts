@@ -1,1 +1,5 @@
-export class CreateMilestoneDto {}
+export class CreateMilestoneDto {
+  name: string;
+  description: string;
+  projectId: string;
+}

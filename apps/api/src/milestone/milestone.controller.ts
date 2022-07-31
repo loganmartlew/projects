@@ -11,7 +11,7 @@ import { MilestoneService } from './milestone.service';
 import { CreateMilestoneDto } from './dto/create-milestone.dto';
 import { UpdateMilestoneDto } from './dto/update-milestone.dto';
 
-@Controller('milestone')
+@Controller('milestones')
 export class MilestoneController {
   constructor(private readonly milestoneService: MilestoneService) {}
 
@@ -27,7 +27,7 @@ export class MilestoneController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.milestoneService.findOne(+id);
+    return this.milestoneService.findOne(id);
   }
 
   @Patch(':id')
@@ -35,11 +35,11 @@ export class MilestoneController {
     @Param('id') id: string,
     @Body() updateMilestoneDto: UpdateMilestoneDto
   ) {
-    return this.milestoneService.update(+id, updateMilestoneDto);
+    return this.milestoneService.update(id, updateMilestoneDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.milestoneService.remove(+id);
+    return this.milestoneService.remove(id);
   }
 }

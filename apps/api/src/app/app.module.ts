@@ -1,13 +1,9 @@
 import { Module } from '@nestjs/common';
 import { OrmModule } from '@project-tracker/database';
+import { MilestoneModule } from '../milestone/milestone.module';
 import { ProjectModule } from '../project/project.module';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-
 @Module({
-  imports: [OrmModule, ProjectModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [OrmModule, ProjectModule, MilestoneModule],
 })
 export class AppModule {}

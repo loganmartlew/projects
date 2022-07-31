@@ -1,7 +1,7 @@
 import { InjectRepository } from '@mikro-orm/nestjs';
 import { EntityRepository } from '@mikro-orm/postgresql';
 import { Injectable } from '@nestjs/common';
-import { Project } from '@project-tracker/database';
+import { Milestone, Project } from '@project-tracker/database';
 import { CreateProjectDto } from './dto/create-project.dto';
 import { UpdateProjectDto } from './dto/update-project.dto';
 
@@ -63,9 +63,21 @@ export class ProjectService {
   }
 
   async remove(id: string): Promise<void> {
-    const project = await this.projectRepository.findOne(id);
+    const project = await this.projectRepository.findOne(id, {
+      populate: ['milestones'],
+    });
 
     await this.projectRepository.remove(project);
     await this.projectRepository.flush();
+  }
+
+  async addMilestone(id: string, milestone: Milestone): Promise<Project> {
+    const project = await this.projectRepository.findOne(id);
+
+    project.milestones.add(milestone);
+
+    await this.projectRepository.persistAndFlush(project);
+
+    return project;
   }
 }
