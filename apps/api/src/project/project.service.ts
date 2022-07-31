@@ -47,11 +47,11 @@ export class ProjectService {
 
     const project = await this.projectRepository.findOne(id);
 
-    project.name = updateProjectDto.name;
-    project.description = updateProjectDto.description;
-    project.isFeatured = updateProjectDto.isFeatured;
-    project.status = updateProjectDto.status;
-    project.links = updateProjectDto.links;
+    project.name = updateProjectDto.name || project.name;
+    project.description = updateProjectDto.description || project.description;
+    project.isFeatured = updateProjectDto.isFeatured || project.isFeatured;
+    project.status = updateProjectDto.status || project.status;
+    project.links = updateProjectDto.links || project.links;
 
     await this.projectRepository.persistAndFlush(project);
 
