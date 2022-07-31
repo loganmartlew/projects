@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
 import { Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
+import { ProjectLink, ProjectStatus } from '@project-tracker/types';
 import { v4 } from 'uuid';
 
 @Entity()
@@ -33,13 +34,4 @@ export class Project {
     this.status = status;
     this.links = links;
   }
-}
-
-enum ProjectStatus {
-  Active = 'active',
-}
-
-interface ProjectLink {
-  name: string;
-  url: string;
 }
