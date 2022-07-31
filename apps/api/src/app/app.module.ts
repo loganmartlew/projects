@@ -9,8 +9,7 @@ import { AppService } from './app.service';
   imports: [
     ProjectModule,
     MikroOrmModule.forRoot({
-      entities: ['./dist/entities'],
-      entitiesTs: ['./src/entities'],
+      autoLoadEntities: true,
     }),
   ],
   controllers: [AppController],
