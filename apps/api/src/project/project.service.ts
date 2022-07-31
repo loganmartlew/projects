@@ -28,13 +28,17 @@ export class ProjectService {
   }
 
   async findAll(): Promise<Project[]> {
-    const projects: Project[] = await this.projectRepository.findAll();
+    const projects: Project[] = await this.projectRepository.findAll({
+      populate: ['milestones'],
+    });
 
     return projects;
   }
 
   async findOne(id: string): Promise<Project> {
-    const project: Project = await this.projectRepository.findOne(id);
+    const project: Project = await this.projectRepository.findOne(id, {
+      populate: ['milestones'],
+    });
 
     return project;
   }
@@ -62,5 +66,6 @@ export class ProjectService {
     const project = await this.projectRepository.findOne(id);
 
     await this.projectRepository.remove(project);
+    await this.projectRepository.flush();
   }
 }

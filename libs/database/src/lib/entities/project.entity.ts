@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-inferrable-types */
-import { Entity, Enum, PrimaryKey, Property } from '@mikro-orm/core';
+import { Collection, Entity, Enum, OneToMany, Property } from '@mikro-orm/core';
+import { BaseEntity } from './base.entity';
 import { ProjectLink, ProjectStatus } from '@project-tracker/types';
-import { v4 } from 'uuid';
+import { Milestone } from './milestone.entity';
 
 @Entity()
-export class Project {
-  @PrimaryKey()
-  id: string = v4();
-
+export class Project extends BaseEntity {
   @Property()
   name!: string;
 
@@ -23,12 +21,16 @@ export class Project {
   @Property({ type: 'json', nullable: true })
   links?: ProjectLink[];
 
+  @OneToMany(() => Milestone, (milestone) => milestone.project)
+  milestones = new Collection<Milestone>(this);
+
   constructor(
     name: string,
     description: string,
     status: ProjectStatus,
     links?: ProjectLink[]
   ) {
+    super();
     this.name = name;
     this.description = description;
     this.status = status;
