@@ -12,23 +12,55 @@ export class ProjectService {
     private readonly projectRepository: EntityRepository<Project>
   ) {}
 
-  create(createProjectDto: CreateProjectDto) {
-    return 'This action adds a new project';
+  async create(createProjectDto: CreateProjectDto): Promise<Project> {
+    // validate dto
+
+    const project = new Project(
+      createProjectDto.name,
+      createProjectDto.description,
+      createProjectDto.status,
+      createProjectDto.links
+    );
+
+    await this.projectRepository.persistAndFlush(project);
+
+    return project;
   }
 
-  findAll() {
-    return `This action returns all project`;
+  async findAll(): Promise<Project[]> {
+    const projects: Project[] = await this.projectRepository.findAll();
+
+    return projects;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} project`;
+  async findOne(id: string): Promise<Project> {
+    const project: Project = await this.projectRepository.findOne(id);
+
+    return project;
   }
 
-  update(id: number, updateProjectDto: UpdateProjectDto) {
-    return `This action updates a #${id} project`;
+  async update(
+    id: string,
+    updateProjectDto: UpdateProjectDto
+  ): Promise<Project> {
+    // validate dto
+
+    const project = await this.projectRepository.findOne(id);
+
+    project.name = updateProjectDto.name;
+    project.description = updateProjectDto.description;
+    project.isFeatured = updateProjectDto.isFeatured;
+    project.status = updateProjectDto.status;
+    project.links = updateProjectDto.links;
+
+    await this.projectRepository.persistAndFlush(project);
+
+    return project;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: string): Promise<void> {
+    const project = await this.projectRepository.findOne(id);
+
+    await this.projectRepository.remove(project);
   }
 }

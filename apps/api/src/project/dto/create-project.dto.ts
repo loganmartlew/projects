@@ -4,5 +4,5 @@ export class CreateProjectDto {
   name: string;
   description: string;
   status: ProjectStatus;
-  links: ProjectLink[];
+  links?: ProjectLink[];
 }
