@@ -25,7 +25,7 @@
       "dependsOn": ["^build"]
     }
   },
-  "defaultProject": "api",
+  "defaultProject": "server",
   "generators": {
     "@nrwl/react": {
       "application": {

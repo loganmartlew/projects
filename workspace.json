@@ -4,8 +4,8 @@
   "projects": {
     "admin": "apps/admin",
     "admin-e2e": "apps/admin-e2e",
-    "api": "apps/api",
     "database": "libs/database",
+    "server": "apps/server",
     "types": "libs/types"
   }
 }
